@@ -77,7 +77,7 @@ box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
 const ConnectWallet = ({ network, userInfoValue, web3ObjValue }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [userInfo, setUserInfo] = useState({});
-  const [web3Obj, setweb3Obj] = useState({});
+  const [web3Obj, setWeb3Obj] = useState({});
 
   /************************************** onRefresh disconnect the Network **********************/
 
@@ -313,7 +313,7 @@ const ConnectWallet = ({ network, userInfoValue, web3ObjValue }) => {
   const onDisconnect = () => {
     window.localStorage.removeItem('userAccount');
     window.localStorage.removeItem('web3obj');
-    setweb3Obj({});
+    setWeb3Obj({});
     setUserInfo({});
     setIsConnected(false);
     console.log("You are dissconnected !!");
@@ -321,7 +321,9 @@ const ConnectWallet = ({ network, userInfoValue, web3ObjValue }) => {
 
   /********************************* Saving Connected User Wallet address ***********************/
 
-  const saveUserInfo = (account, chainId, ethBalance, shortAddress, web3obj) => {
+  const saveUserInfo = (account, chainId, ethBalance, shortAddress, web3Obj) => {
+    console.log("Hereeeee");
+   
     const userAccount = {
       account: account,
       connectionid: chainId,
@@ -330,13 +332,11 @@ const ConnectWallet = ({ network, userInfoValue, web3ObjValue }) => {
       networkName: network
     };
     window.localStorage.setItem('userAccount', JSON.stringify(userAccount)); //user persisted data
-    window.localStorage.setItem('web3obj', web3obj); //Web3 obj
 
     const userData = JSON.parse(localStorage.getItem('userAccount'));
-    const objData = JSON.parse(localStorage.getItem('obj'));
 
     setUserInfo(userData);
-    setweb3Obj(objData);
+    setWeb3Obj(web3Obj);
     setIsConnected(true);
   };
 

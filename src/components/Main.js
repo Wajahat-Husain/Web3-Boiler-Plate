@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Tabs from "./Tabs";
-import Dropdown from "./Dropdown";
+import Dropdown from "../subComponents/Dropdown";
 import ConnectionStatus from "../subComponents/ConnectionStatus";
 
 

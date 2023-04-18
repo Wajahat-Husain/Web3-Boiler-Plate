@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import DashBoard from "../subComponents/DashBoard";
-import Token from "../tabs/Token";
+import DashBoard from "../tabs/DashBoard";
+import CustomToken from "../tabs/CustomToken";//
+import TransactionHistory from "../tabs/TransactionHistory ";
 
 const TabsContainer = styled.div`
   display: flex;
@@ -93,8 +94,6 @@ const TabContent = styled.div`
   }
 `;
 
-
-
 const TabContainer = ({network, isStatus}) => {
     const [activeTab, setActiveTab] = useState(1);
     const [userInfo, setUserInfo] = useState({});
@@ -107,11 +106,9 @@ const TabContainer = ({network, isStatus}) => {
         }else{
              isStatus(true)
         }
-        console.log("Tabs userInfo", userInfo);
     };
     const web3ObjDetails = (etherData) => {
         setweb3Obj(etherData)
-        console.log("Tabs web3Obj", web3Obj);
     }
     const handleTabClick = (tabIndex) => {
         setActiveTab(tabIndex);
@@ -126,6 +123,11 @@ const TabContainer = ({network, isStatus}) => {
                     </span>
                 </Tab>
                 <Tab active={activeTab === 2} onClick={() => handleTabClick(2)}>
+                    <span>
+                        Transaction History
+                    </span>
+                </Tab>
+                <Tab active={activeTab === 3} onClick={() => handleTabClick(3)}>
                     <span>
                         ERC20 Contract
                     </span>
@@ -146,11 +148,10 @@ const TabContainer = ({network, isStatus}) => {
                 <TabContent>
                     {activeTab === 1 ? (
                         <DashBoard network = {network} userInfoDetails={userInfoDetails} web3ObjDetails={web3ObjDetails} />
-                    ) : activeTab === 2 ?(<Token userInfo={userInfo} web3Obj={web3Obj}/>):(
-                        <div>
-                            <h2>Welcome to the Profile tab</h2>
-                            <p>Etiam euismod odio nec sapien interdum, ac malesuada mauris tempor. Vestibulum in eros in sapien hendrerit tempus. Integer sollicitudin malesuada risus eu faucibus. </p>
-                        </div>
+                    ) : activeTab === 2 ?(<TransactionHistory userInfo={userInfo} web3Obj={web3Obj}/>):
+                      activeTab === 3 ?(<CustomToken userInfo={userInfo} web3Obj={web3Obj}/>):(
+                        <>
+                        </>
                     )}
                 </TabContent>
             </TabContentContainer>
